@@ -3,7 +3,7 @@
 // @namespace   LM_Watchlist
 // @include     http://www.linkomanija.net/browse.php*
 // @include     http://www.linkomanija.net/torrents.php*
-// @version     1
+// @version     2
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
 // @grant  GM_xmlhttpRequest
 // @grant  GM_getValue
@@ -16,9 +16,11 @@ function _d(data) {
 }
 
 var Watchlist_Patterns = GM_getValue("Watchlist_Patterns", false);
-var Watchlist_Enable = GM_getValue("Watchlist_Enable", true);
+Watchlist_Patterns     = jQuery.parseJSON(Watchlist_Patterns);
+
+var Watchlist_Enable     = GM_getValue("Watchlist_Enable", true);
 var Watchlist_Background = GM_getValue("Watchlist_Background", '#90EE90');
-var container_bg = '#F2F7F8';
+var container_bg         = '#F2F7F8';
 
 jQuery(document).ready(function() {
 
@@ -107,9 +109,12 @@ jQuery(document).ready(function() {
                     '-webkit-box-sizing': 'border-box'
                 })
                 .val('');
+                       
             if (Watchlist_Patterns instanceof Array) {
-                textarea.val(Watchlist_Patterns.join('\n'));
+                var patterns = Watchlist_Patterns.join("\n");
+                textarea.val(patterns);
             }
+            
             Settings_container.append(textarea);
             Settings_container.append(Settings_separator.clone());
 
@@ -181,6 +186,8 @@ jQuery(document).ready(function() {
                 var enable = jQuery("#watchlist-settings-container input[name='Watchlist_Enable']").is(':checked');
                 var patterns = jQuery("#watchlist-settings-container textarea[name='Watchlist_Patterns']").val().split('\n').filter(function(n){return n});
                 var background = jQuery("#watchlist-settings-container input[name='Watchlist_Background']").val();
+                patterns = JSON.stringify(patterns);
+                
                 GM_setValue("Watchlist_Patterns", patterns);
                 GM_setValue("Watchlist_Enable", enable);
                 GM_setValue("Watchlist_Background", background);
