@@ -3,7 +3,7 @@
 // @namespace   LM_Watchlist
 // @include     http://www.linkomanija.net/browse.php*
 // @include     http://www.linkomanija.net/torrents.php*
-// @version     2
+// @version     3
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
 // @grant  GM_xmlhttpRequest
 // @grant  GM_getValue
@@ -24,12 +24,12 @@ var container_bg         = '#F2F7F8';
 
 jQuery(document).ready(function() {
 
-    try {
+    try {        
         // LM browse container
-        var Container = jQuery('#content').find('table:eq(3)');
+        var Container = jQuery('#content form').find('table:eq(3)');
         if (Container.length <= 0) {
             // 5 zona container
-            Container = jQuery('#content').find('table:eq(1)');
+            Container = jQuery('#content').find('table:eq(2)');
         }
         var Heading = Container.find('tr:eq(0)');
 
